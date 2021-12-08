@@ -12,10 +12,21 @@ This is a project for synchronize data from a database to another database.
 
 For installation, you will need to follow these step:
 
-1. Install ruby and rbenv (version manager)
+1. Install ruby and rvm
 
 ```
-sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
+sudo apt install gcc gnupg2
+gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+cd ~
+curl -sSL https://get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+rvm install 3.0.2
+```
+
+**Note**: If you prefer using rbenv, you can reference to this:
+
+```
+sudo apt install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 
 chmod +x ./shell-helper/2-rbenv-install.sh
 ./shell-helper/2-rbenv-install.sh
@@ -42,7 +53,17 @@ sudo apt-get install mysql-client libmysqlclient-dev
 bundle install
 ```
 
-4. Setup
+4. Setup webpack
+
+Before you can run this command, you will need to install node, npm, yarn:
+
+```
+apt install nodejs npm -y
+sudo npm install --global yarn
+bundle exec rake webpacker:install
+```
+
+Install webpacker with:
 
 ```
 bundle exec rake webpacker:install
@@ -53,6 +74,8 @@ bundle exec rake webpacker:install
 ```
 rails server -b 127.0.0.1 -p 3000
 ```
+
+Note: Change to your local IP (private IP) if you host this on EC2.
 
 ## Run with container
 
