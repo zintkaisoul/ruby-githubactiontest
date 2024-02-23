@@ -15,7 +15,7 @@ For installation, you will need to follow these step:
 1. Install ruby and rvm
 
 ```
-sudo apt install gcc gnupg2
+sudo apt install -y gcc gnupg2
 gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 cd ~
 curl -sSL https://get.rvm.io | bash -s stable
@@ -39,28 +39,42 @@ For choose the correct path for ruby version, you may need to config the `.bashr
 export PATH=~/.rbenv/shims:$PATH
 ```
 
-2. Install mysql
+2. Install mysql client
 
 (Install client only -> can connect to a DB, but cannot host)
 
 ```
-sudo apt-get install mysql-client libmysqlclient-dev
+sudo apt-get install -y mysql-client libmysqlclient-dev
 ```
 
-3. Install dependencies
+3. Clone source code to local
+
+If haven't git, install git: 
+```
+sudo apt install -y git
+```
+
+
+Clone source code to local
+```
+cd ~
+git clone https://github.com/kumcp/db-syncing.git
+```
+
+4. Install dependencies
 
 ```
+cd ~/db-syncing
 bundle install
 ```
 
-4. Setup webpack
+5. Setup webpack
 
 Before you can run this command, you will need to install node, npm, yarn:
 
 ```
-apt install nodejs npm -y
+sudo apt install nodejs npm -y
 sudo npm install --global yarn
-bundle exec rake webpacker:install
 ```
 
 Install webpacker with:
@@ -75,7 +89,12 @@ bundle exec rake webpacker:install
 rails server -b 127.0.0.1 -p 3000
 ```
 
-Note: Change to your local IP (private IP) if you host this on EC2.
+Note:
+- Change to your local IP (private IP) if you host this on EC2.
+- Change to 0.0.0.0 if want to bind address anywhere.
+```
+rails server -b 0.0.0.0 -p 3000
+```
 
 ## Run with container
 
